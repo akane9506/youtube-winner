@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { Input } from "@heroui/input";
-import { Button, Chip } from "@heroui/react";
+import { Button, Checkbox, Chip } from "@heroui/react";
 import { useContext } from "react";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { CONTENTS } from "@/consts";
@@ -9,7 +9,7 @@ import { getComments } from "@/api/comments";
 const Search = () => {
   const { language } = useContext(PreferenceContext);
   const [videoId, setVideoId] = useState<string>("");
-  // TODO: button searching state
+  const [searchScope, setSearchScope] = useState<boolean[]>([true, false]);
 
   const fetchComments = useCallback(async (requestId: string) => {
     try {
@@ -72,15 +72,36 @@ const Search = () => {
         label={CONTENTS.search[language].inputLabel}
         labelPlacement="outside"
         color="secondary"
-        className="mb-10 max-w-[720px]"
+        className="mb-5 max-w-[720px]"
         value={videoId}
         onValueChange={(value) => setVideoId(value)}
       />
+      <div className="flex gap-4 mb-10">
+        <Checkbox
+          isSelected={searchScope[0]}
+          color="secondary"
+          onValueChange={(isSelected) => {
+            setSearchScope((prev) => [isSelected, prev[1]]);
+          }}
+        >
+          <p className="text-secondary">{CONTENTS.search[language].options[0]}</p>
+        </Checkbox>
+        <Checkbox
+          isSelected={searchScope[1]}
+          color="secondary"
+          onValueChange={(isSelected) => {
+            setSearchScope((prev) => [prev[0], isSelected]);
+          }}
+        >
+          <p className="text-secondary">{CONTENTS.search[language].options[1]}</p>
+        </Checkbox>
+      </div>
       <Button
         color="secondary"
         variant="shadow"
         className="text-default-50"
         onPress={handleConfirmSearch}
+        isDisabled={searchScope[0] === false && searchScope[1] === false}
       >
         {CONTENTS.search[language].button}
       </Button>
