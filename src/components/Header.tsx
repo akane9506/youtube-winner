@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <div className="flex items-center justify-between px-5 py-2 border-b-1 border-foreground/30">
       <div>
-        <h1 className="text-[1.5rem] font-semibold tracking-wide">YouTube Draw</h1>
+        <h1 className="text-[1.5rem] font-semibold tracking-wide">YouTube Winner</h1>
       </div>
       <div className="flex gap-7 items-center">
         <div className="flex items-center justify-center gap-2">

@@ -4,18 +4,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>YouTube Draw</title>
+    <title>YouTube Winner</title>
   </head>
   <body>
     <div id="root"></div>
     <script>
       // This script avoid theme blinking when loading the page
-      const theme = localStorage.getItem("youtube_draw_theme");
+      const theme = localStorage.getItem("youtube_winner_theme");
       if (theme && theme === "dark") {
         document.documentElement.classList.add("dark");
       }
     </script>
-
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -7,8 +7,10 @@ function App() {
   return (
     <PreferenceProvider>
       <HeroUIProvider>
-        <Header />
-        <Search />
+        <div className="flex flex-col h-dvh min-h-[680px]">
+          <Header />
+          <Search />
+        </div>
       </HeroUIProvider>
     </PreferenceProvider>
   );

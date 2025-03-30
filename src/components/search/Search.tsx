@@ -50,7 +50,7 @@ const Search = () => {
   };
 
   return (
-    <div className="flex flex-col px-20 items-center">
+    <div className="flex flex-col px-20 items-center justify-center flex-1">
       <h2 className="text-xl font-semibold">{CONTENTS.search[language].title}</h2>
       <div className="mt-12 mb-4">
         <p className="mb-3">{CONTENTS.search[language].instruction}</p>
@@ -72,7 +72,7 @@ const Search = () => {
         label={CONTENTS.search[language].inputLabel}
         labelPlacement="outside"
         color="secondary"
-        className="mb-10"
+        className="mb-10 max-w-[720px]"
         value={videoId}
         onValueChange={(value) => setVideoId(value)}
       />
@@ -84,6 +84,9 @@ const Search = () => {
       >
         {CONTENTS.search[language].button}
       </Button>
+      <div>
+        <p></p>
+      </div>
     </div>
   );
 };
