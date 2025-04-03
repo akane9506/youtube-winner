@@ -1,53 +1,16 @@
-import { useCallback, useState } from "react";
+import { useState, useContext } from "react";
 import { Input } from "@heroui/input";
 import { Button, Checkbox, Chip } from "@heroui/react";
-import { useContext } from "react";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
+import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { CONTENTS } from "@/consts";
-import { getComments } from "@/api/comments";
 
 const Search = () => {
   const { language } = useContext(PreferenceContext);
+  const { startSearch } = useContext(SearchResultContext);
+
   const [videoId, setVideoId] = useState<string>("");
   const [searchScope, setSearchScope] = useState<boolean[]>([true, false]);
-
-  const fetchComments = useCallback(async (requestId: string) => {
-    try {
-      const data = await getComments(requestId);
-      console.log(data);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      } else {
-        console.error("An unknown error occurred");
-      }
-    }
-  }, []);
-
-  const handleConfirmSearch = () => {
-    // TODO: convert following alerts into warning messages on the input field
-    if (videoId.length < 11) {
-      alert("Please enter a valid video id");
-      return;
-    }
-
-    let requestId = undefined;
-
-    // TODO: implement local search limit
-
-    if (videoId.startsWith("https://")) {
-      const params = new URL(videoId).searchParams;
-      requestId = params.get("v");
-      if (!requestId) {
-        alert("Please enter a valid video id"); // this should notify user to check if &v= in the url
-        return;
-      }
-    } else {
-      requestId = videoId;
-    }
-
-    fetchComments(requestId);
-  };
 
   return (
     <div className="flex flex-col px-20 items-center justify-center flex-1">
@@ -100,7 +63,9 @@ const Search = () => {
         color="secondary"
         variant="shadow"
         className="text-default-50"
-        onPress={handleConfirmSearch}
+        onPress={() => {
+          startSearch(videoId);
+        }}
         isDisabled={searchScope[0] === false && searchScope[1] === false}
       >
         {CONTENTS.search[language].button}
