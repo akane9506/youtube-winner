@@ -1,7 +1,8 @@
 import { HeroUIProvider } from "@heroui/react";
 import PreferenceProvider from "@/contexts/PreferenceContext";
 import Header from "@/components/Header";
-import Search from "@/components/search/Search";
+import SearchResultProvider from "@/contexts/SearchResultContext";
+import Main from "@/components/Main";
 
 function App() {
   // TODO: use this part for handling screen with different resolutions
@@ -17,7 +18,10 @@ function App() {
       <HeroUIProvider>
         <div className="flex flex-col h-dvh min-h-[680px]">
           <Header />
-          <Search />
+          {/* Search and result section */}
+          <SearchResultProvider>
+            <Main />
+          </SearchResultProvider>
         </div>
       </HeroUIProvider>
     </PreferenceProvider>
