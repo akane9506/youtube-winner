@@ -15,8 +15,8 @@ function App() {
 
   return (
     <PreferenceProvider>
-      <HeroUIProvider>
-        <div className="flex flex-col h-dvh min-h-[680px]">
+      <HeroUIProvider className="h-full">
+        <div className="flex flex-col h-full">
           <Header />
           {/* Search and result section */}
           <SearchResultProvider>
