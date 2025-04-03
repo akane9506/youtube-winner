@@ -3,7 +3,7 @@ import { Avatar } from "@heroui/avatar";
 
 const CommentItem = ({ comment }: { comment: Comment }) => {
   return (
-    <div className="flex items-center my-2 px-4 py-2 rounded-lg bg-secondary/10 border border-secondary/20 shadow-md max-w-[1000px]">
+    <div className="flex items-center my-3 px-4 py-2 rounded-lg shadow-md max-w-[1000px]">
       <div className="flex items-center gap-4 mr-4 w-[200px]">
         <Avatar src={comment.autherProfileImageUrl} alt={comment.autherDisplayName} />
         <div>

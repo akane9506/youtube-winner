@@ -42,6 +42,10 @@ const CONTENTS = {
       options: ["评论", "点赞"],
     },
   },
+  tab: {
+    en: ["Comments", "Likes"],
+    zh: ["评论", "点赞"],
+  },
   header: {},
 };
 

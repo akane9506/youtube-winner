@@ -6,7 +6,6 @@ import Results from "@/components/routes/results/Results";
 // The Main component functions as a router
 const Main = () => {
   const { searchResults } = useContext(SearchResultContext);
-  console.log(searchResults);
   if (searchResults.length === 0) {
     return <Search />;
   }
