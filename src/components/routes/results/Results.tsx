@@ -10,11 +10,11 @@ const Results = () => {
   const { searchResults } = useContext(SearchResultContext);
   const [page, setPage] = useState<number>(1);
   return (
-    <div className="flex-1 w-full flex flex-col items-center px-40 max-h-full overflow-y-auto">
-      <Tabs classNames={{ panel: "flex-1 flex h-[80%]" }}>
+    <div className="flex-1 w-full py-4 flex flex-col items-center px-40 max-h-full overflow-y-auto">
+      <Tabs classNames={{ panel: "flex-1 flex h-[80%]" }} size="md" radius="full">
         <Tab key="comments" title={CONTENTS.tab[language][0]}>
-          <div className="flex flex-col max-h-full items-center">
-            <div className="flex-1 overflow-y-auto p-5">
+          <div className="flex flex-col gap-4 max-h-full items-center">
+            <div className="flex-1 overflow-y-auto px-5">
               {searchResults
                 .slice((page - 1) * commentsPerPage, page * commentsPerPage)
                 .map((comment) => (
@@ -29,6 +29,8 @@ const Results = () => {
               page={page}
               total={Math.ceil(searchResults.length / commentsPerPage)}
               onChange={setPage}
+              variant="light"
+              size="sm"
             />
           </div>
         </Tab>
