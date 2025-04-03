@@ -1,27 +1,6 @@
+import { Comment } from "@/models";
+
 const youtubeKey = import.meta.env.VITE_YOUTUBE_API_KEY;
-
-// step 1: get first page video comments, store the number of total results
-// step 2: parse and store the comments
-// step 3: while curr_comments < total_results, get next page comments
-
-class Comment {
-  public createdAt: number;
-  public textDisplay: string;
-  public autherDisplayName: string;
-  public autherProfileImageUrl: string;
-  public autherChannelUrl: string;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(data: any) {
-    // parse the createdAt date to the number timestamp
-    this.createdAt = new Date(data.snippet.topLevelComment.snippet.publishedAt).getTime();
-    this.textDisplay = data.snippet.topLevelComment.snippet.textDisplay;
-    this.autherDisplayName = data.snippet.topLevelComment.snippet.authorDisplayName;
-    this.autherProfileImageUrl =
-      data.snippet.topLevelComment.snippet.authorProfileImageUrl;
-    this.autherChannelUrl = data.snippet.topLevelComment.snippet.authorChannelUrl;
-  }
-}
 
 export const getComments = async (videoId: string) => {
   try {
@@ -40,7 +19,7 @@ export const getComments = async (videoId: string) => {
     // const totalResults = data.pageInfo.totalResults;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const parsedComments = data.items.map((item: any) => new Comment(item));
+    const parsedComments: Comment[] = data.items.map((item: any) => new Comment(item));
     let nextPageToken = data.nextPageToken;
     let queries = 1;
     while (nextPageToken && queries < 500) {
