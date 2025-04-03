@@ -8,6 +8,7 @@ import {
 interface PreferenceProps {
   theme: AvailableThemesType;
   language: AvailableLanguagesType;
+  commentsPerPage: number;
   toggleTheme: () => void;
   updateLanguage: (newLanguage: PreferenceProps["language"]) => void;
 }
@@ -16,6 +17,7 @@ interface PreferenceProps {
 const PreferenceContext = createContext<PreferenceProps>({
   theme: "light",
   language: "en",
+  commentsPerPage: 12,
   toggleTheme: () => {},
   updateLanguage: () => {},
 });
@@ -63,6 +65,8 @@ const PreferenceProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         theme,
         language,
+        // later change this to a state
+        commentsPerPage: 12,
         toggleTheme: handleToggleTheme,
         updateLanguage: handleUpdateLanguage,
       }}
