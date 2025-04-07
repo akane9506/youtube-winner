@@ -7,7 +7,7 @@ import { CONTENTS } from "@/consts";
 
 const Search = () => {
   const { language } = useContext(PreferenceContext);
-  const { startSearch } = useContext(SearchResultContext);
+  const { startSearch, isLoading } = useContext(SearchResultContext);
 
   const [videoId, setVideoId] = useState<string>("");
   const [searchScope, setSearchScope] = useState<boolean[]>([true, false]);
@@ -63,16 +63,16 @@ const Search = () => {
         color="secondary"
         variant="shadow"
         className="text-default-50"
+        isLoading={isLoading}
         onPress={() => {
           startSearch(videoId);
         }}
         isDisabled={searchScope[0] === false && searchScope[1] === false}
       >
-        {CONTENTS.search[language].button}
+        {isLoading
+          ? CONTENTS.search[language].buttonLoading
+          : CONTENTS.search[language].button}
       </Button>
-      <div>
-        <p></p>
-      </div>
     </div>
   );
 };
