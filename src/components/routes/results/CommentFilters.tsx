@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
-import { DateRangePicker, type RangeValue } from "@heroui/react";
+import { DateRangePicker, Checkbox, Input, type RangeValue } from "@heroui/react";
 import { parseDate, type CalendarDate } from "@internationalized/date";
 import { CONTENTS } from "@/consts";
 
@@ -12,9 +12,17 @@ type CommentFiltersProps = {
   min: number;
   max: number;
   updateDateRange: (newDateRange: number[]) => void;
+  excludeDuplicates: boolean;
+  toggleExcludeDuplicates: (newValue: boolean) => void;
 };
 
-const CommentFilters = ({ min, max, updateDateRange }: CommentFiltersProps) => {
+const CommentFilters = ({
+  min,
+  max,
+  updateDateRange,
+  excludeDuplicates,
+  toggleExcludeDuplicates,
+}: CommentFiltersProps) => {
   const { language } = useContext(PreferenceContext);
 
   const minDate = new Date(min);
@@ -48,7 +56,7 @@ const CommentFilters = ({ min, max, updateDateRange }: CommentFiltersProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col gap-3 items-center">
       <DateRangePicker
         aria-label="Date Range Picker"
         label={CONTENTS.filters[language][0]}
@@ -60,6 +68,22 @@ const CommentFilters = ({ min, max, updateDateRange }: CommentFiltersProps) => {
         defaultValue={{ start: parseDate(minDateString), end: parseDate(maxDateString) }}
         onChange={handleDateRangeChange}
       />
+      <Input
+        className="max-w-xs"
+        classNames={{
+          label: "text-default-foreground/50 font-normal",
+        }}
+        label={CONTENTS.filters[language][1]}
+        labelPlacement="inside"
+      />
+      <Checkbox
+        isSelected={excludeDuplicates}
+        size="md"
+        onValueChange={toggleExcludeDuplicates}
+        color="secondary"
+      >
+        {CONTENTS.filters[language][2]}
+      </Checkbox>
     </div>
   );
 };

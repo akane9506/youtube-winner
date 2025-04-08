@@ -1,9 +1,9 @@
 import { Comment } from "@/models";
-import { Avatar } from "@heroui/avatar";
+import { Avatar } from "@heroui/react";
 
 const CommentItem = ({ comment }: { comment: Comment }) => {
   return (
-    <div className="flex items-center my-3 px-4 py-2 rounded-lg shadow-md border border-default-foreground/10 max-w-[1000px]">
+    <div className="flex items-center my-3 px-4 py-2 rounded-lg shadow-md border border-default-foreground/10 max-w-[1000px] mx-auto">
       <div className="flex items-center gap-4 mr-4 w-[260px]">
         <Avatar
           className="w-10 h-10"
@@ -16,7 +16,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
           <a
             href={comment.autherChannelUrl}
             target="_blank"
-            className="text-sm font-semibold"
+            className="text-sm font-semibold hover:underline"
           >
             {comment.autherDisplayName}
           </a>

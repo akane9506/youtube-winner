@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import { Input } from "@heroui/input";
-import { Button, Checkbox, Chip } from "@heroui/react";
+// import { Input } from "@heroui/input";
+import { Button, Checkbox, Chip, Input } from "@heroui/react";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { CONTENTS } from "@/consts";
