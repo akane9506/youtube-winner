@@ -1,5 +1,8 @@
+import { useContext } from "react";
+import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { DateRangePicker, type RangeValue } from "@heroui/react";
 import { parseDate, type CalendarDate } from "@internationalized/date";
+import { CONTENTS } from "@/consts";
 
 const getDateString = (date: Date) => {
   return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
@@ -12,6 +15,8 @@ type CommentFiltersProps = {
 };
 
 const CommentFilters = ({ min, max, updateDateRange }: CommentFiltersProps) => {
+  const { language } = useContext(PreferenceContext);
+
   const minDate = new Date(min);
   const maxDate = new Date(max);
 
@@ -46,7 +51,7 @@ const CommentFilters = ({ min, max, updateDateRange }: CommentFiltersProps) => {
     <div className="flex flex-col items-center">
       <DateRangePicker
         aria-label="Date Range Picker"
-        label="Comment Date"
+        label={CONTENTS.filters[language][0]}
         className="max-w-xs"
         labelPlacement="inside"
         minValue={parseDate(minDateString)}

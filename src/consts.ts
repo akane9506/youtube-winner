@@ -29,6 +29,7 @@ const CONTENTS = {
         "draw winners",
       ],
       options: ["Comments", "Likes"],
+      filters: ["Date Range"],
     },
     zh: {
       title: "搜索视频评论与点赞",
@@ -43,6 +44,10 @@ const CONTENTS = {
       workflow: ["输入视频 id", "选择评论或/及点赞", "获取数据", "抽奖"],
       options: ["评论", "点赞"],
     },
+  },
+  filters: {
+    zh: ["日期范围"],
+    en: ["Date Range"],
   },
   tab: {
     en: ["Comments", "Likes"],
