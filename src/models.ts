@@ -17,4 +17,19 @@ class Comment {
   }
 }
 
-export { Comment };
+class VideoInfo {
+  public title: string;
+  public description: string;
+  public publishedAt: string;
+  public imageUrl: string;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  constructor(data: any) {
+    this.title = data.items[0].snippet.title;
+    this.description = data.items[0].snippet.description;
+    this.publishedAt = data.items[0].snippet.publishedAt;
+    this.imageUrl = data.items[0].snippet.thumbnails.medium.url;
+  }
+}
+
+export { Comment, VideoInfo };

@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
-// import { Input } from "@heroui/input";
-import { Button, Checkbox, Chip, Input } from "@heroui/react";
+import { Button, Chip, Input } from "@heroui/react";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { CONTENTS } from "@/consts";
@@ -10,7 +9,6 @@ const Search = () => {
   const { startSearch, isLoading } = useContext(SearchResultContext);
 
   const [videoId, setVideoId] = useState<string>("");
-  const [searchScope, setSearchScope] = useState<boolean[]>([true, false]);
 
   return (
     <div className="flex flex-col px-20 items-center justify-center flex-1">
@@ -39,26 +37,6 @@ const Search = () => {
         value={videoId}
         onValueChange={(value) => setVideoId(value)}
       />
-      <div className="flex gap-4 mb-10">
-        <Checkbox
-          isSelected={searchScope[0]}
-          color="secondary"
-          onValueChange={(isSelected) => {
-            setSearchScope((prev) => [isSelected, prev[1]]);
-          }}
-        >
-          <p className="text-secondary">{CONTENTS.search[language].options[0]}</p>
-        </Checkbox>
-        <Checkbox
-          isSelected={searchScope[1]}
-          color="secondary"
-          onValueChange={(isSelected) => {
-            setSearchScope((prev) => [prev[0], isSelected]);
-          }}
-        >
-          <p className="text-secondary">{CONTENTS.search[language].options[1]}</p>
-        </Checkbox>
-      </div>
       <Button
         color="secondary"
         variant="shadow"
@@ -67,7 +45,7 @@ const Search = () => {
         onPress={() => {
           startSearch(videoId);
         }}
-        isDisabled={searchScope[0] === false && searchScope[1] === false}
+        isDisabled={videoId.length < 11}
       >
         {isLoading
           ? CONTENTS.search[language].buttonLoading

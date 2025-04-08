@@ -1,4 +1,4 @@
-import { Comment } from "@/models";
+import { Comment, VideoInfo } from "@/models";
 
 const youtubeKey = import.meta.env.VITE_YOUTUBE_API_KEY;
 
@@ -47,5 +47,27 @@ export const getComments = async (videoId: string) => {
       throw error;
     }
     throw new Error("Failed to fetch comments: Unknown error");
+  }
+};
+
+export const getVideoInfo = async (videoId: string) => {
+  try {
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?key=${youtubeKey}&part=snippet&id=${videoId}`
+    );
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        `YouTube API Error: ${errorData.error?.message || response.statusText}`
+      );
+    }
+    const data = await response.json();
+    const videoInfo = new VideoInfo(data);
+    return videoInfo;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("Failed to fetch video info: Unknown error");
   }
 };

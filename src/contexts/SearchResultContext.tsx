@@ -1,9 +1,10 @@
-import { useState, createContext } from "react";
-import { getComments } from "@/api/comments";
-import { Comment } from "@/models";
+import React, { useState, createContext } from "react";
+import { getComments, getVideoInfo } from "@/api/comments";
+import { Comment, VideoInfo } from "@/models";
 
 interface SearchResultProps {
   searchResults: Comment[];
+  videoInfo: VideoInfo | null;
   isLoading: boolean;
   error: string | null;
   startSearch: (videoId: string) => void;
@@ -11,6 +12,7 @@ interface SearchResultProps {
 
 const SearchResultContext = createContext<SearchResultProps>({
   searchResults: [],
+  videoInfo: null,
   isLoading: false,
   error: null,
   startSearch: () => {},
@@ -18,6 +20,7 @@ const SearchResultContext = createContext<SearchResultProps>({
 
 const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
   const [searchResults, setSearchResults] = useState<Comment[]>([]);
+  const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,11 +28,16 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
   const fetchComments = async (videoId: string) => {
     try {
       setIsLoading(true);
-      const data = await getComments(videoId);
-      if (!data || data.length === 0) {
+      const commentsData = await getComments(videoId);
+      if (!commentsData || commentsData.length === 0) {
         throw new Error("No comments found");
       }
-      setSearchResults(data);
+      const videoInfoData = await getVideoInfo(videoId);
+      if (!videoInfoData) {
+        throw new Error("No video info found");
+      }
+      setVideoInfo(videoInfoData);
+      setSearchResults(commentsData);
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -67,7 +75,7 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SearchResultContext.Provider
-      value={{ searchResults, error, isLoading, startSearch }}
+      value={{ searchResults, videoInfo, error, isLoading, startSearch }}
     >
       {children}
     </SearchResultContext.Provider>

@@ -28,7 +28,6 @@ const CONTENTS = {
         "fetch data",
         "draw winners",
       ],
-      options: ["Comments", "Users"],
       filters: ["Date Range"],
     },
     zh: {
@@ -42,7 +41,6 @@ const CONTENTS = {
       exampleInputs: ["https://www.youtube.com/watch?v=abcd1234", "abcd1234"],
       workflowTitle: "抽奖流程",
       workflow: ["输入视频 id", "选择评论或/及点赞", "获取数据", "抽奖"],
-      options: ["评论", "用户"],
     },
   },
   filters: {
@@ -50,8 +48,8 @@ const CONTENTS = {
     en: ["Date Range", "Include Keywords", "Exclude Duplicated Users"],
   },
   tab: {
-    en: ["Comments", "Likes"],
-    zh: ["评论", "点赞"],
+    en: ["Comments", "Users"],
+    zh: ["评论", "用户"],
   },
   header: {},
 };
