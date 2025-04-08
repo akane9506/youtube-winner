@@ -1,9 +1,10 @@
 import React, { useState, createContext } from "react";
-import { getComments, getVideoInfo } from "@/api/comments";
-import { Comment, VideoInfo } from "@/models";
+import { getComments, getUniqueUsers, getVideoInfo } from "@/api/comments";
+import { Comment, User, VideoInfo } from "@/models";
 
 interface SearchResultProps {
   searchResults: Comment[];
+  users: User[];
   videoInfo: VideoInfo | null;
   isLoading: boolean;
   error: string | null;
@@ -12,6 +13,7 @@ interface SearchResultProps {
 
 const SearchResultContext = createContext<SearchResultProps>({
   searchResults: [],
+  users: [],
   videoInfo: null,
   isLoading: false,
   error: null,
@@ -20,6 +22,7 @@ const SearchResultContext = createContext<SearchResultProps>({
 
 const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
   const [searchResults, setSearchResults] = useState<Comment[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,6 +41,7 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
       }
       setVideoInfo(videoInfoData);
       setSearchResults(commentsData);
+      setUsers(getUniqueUsers(commentsData));
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -75,7 +79,7 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SearchResultContext.Provider
-      value={{ searchResults, videoInfo, error, isLoading, startSearch }}
+      value={{ searchResults, users, videoInfo, error, isLoading, startSearch }}
     >
       {children}
     </SearchResultContext.Provider>
