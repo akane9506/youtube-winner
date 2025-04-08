@@ -54,6 +54,7 @@ const CommentFilters = ({ min, max, updateDateRange }: CommentFiltersProps) => {
         label={CONTENTS.filters[language][0]}
         className="max-w-xs"
         labelPlacement="inside"
+        variant="faded"
         minValue={parseDate(minDateString)}
         maxValue={parseDate(maxDateString)}
         defaultValue={{ start: parseDate(minDateString), end: parseDate(maxDateString) }}
