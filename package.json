@@ -10,15 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroui/avatar": "^2.2.12",
-    "@heroui/button": "^2.2.16",
-    "@heroui/checkbox": "^2.3.15",
-    "@heroui/dropdown": "^2.3.16",
-    "@heroui/input": "^2.4.16",
-    "@heroui/pagination": "^2.2.14",
     "@heroui/react": "^2.7.5",
-    "@heroui/switch": "^2.2.14",
-    "@heroui/tabs": "^2.2.13",
     "@internationalized/date": "^3.7.0",
     "@types/node": "^22.13.13",
     "framer-motion": "^12.5.0",

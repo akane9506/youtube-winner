@@ -16,18 +16,28 @@ const Comments = () => {
     return [Math.min(...dates), Math.max(...dates)];
   }, [searchResults]);
 
+  // Filters
   // this date range state should be initialized with the min and max time
   const [dateRange, setDateRange] = useState<number[]>([minTime, maxTime]);
+  const [excludeDuplicates, setExcludeDuplicates] = useState<boolean>(true);
 
   const handleUpdateDateRange = (newDateRange: number[]) => {
     setDateRange(newDateRange);
   };
+  const handleToggleExcludeDuplicates = (newValue: boolean) => {
+    setExcludeDuplicates(newValue);
+  };
 
   const filteredResults = useMemo(() => {
+    const userSet = new Set<string>();
     return searchResults.filter((data) => {
+      if (userSet.has(data.autherDisplayName) && excludeDuplicates) {
+        return false;
+      }
+      userSet.add(data.autherDisplayName);
       return data.createdAt >= dateRange[0] && data.createdAt <= dateRange[1];
     });
-  }, [searchResults, dateRange]);
+  }, [searchResults, dateRange, excludeDuplicates]);
 
   const totalPages = Math.ceil(filteredResults.length / commentsPerPage);
 
@@ -37,12 +47,21 @@ const Comments = () => {
         min={minTime}
         max={maxTime}
         updateDateRange={handleUpdateDateRange}
+        excludeDuplicates={excludeDuplicates}
+        toggleExcludeDuplicates={handleToggleExcludeDuplicates}
       />
       <div className="col-span-4 flex flex-col items-center overflow-y-auto">
-        <Tabs classNames={{ panel: "flex-1 flex h-[80%]" }} size="md" radius="full">
-          <Tab key="comments" title={CONTENTS.tab[language][0]}>
-            <div className="flex flex-col gap-4 items-center">
-              <div className="flex-1 overflow-y-auto px-5">
+        <Tabs
+          classNames={{ panel: "flex-1 flex h-[80%] w-full" }}
+          size="md"
+          radius="full"
+        >
+          <Tab
+            key="comments"
+            title={`${CONTENTS.tab[language][0]} ${filteredResults.length}`}
+          >
+            <div className="flex flex-col gap-4 items-center w-full">
+              <div className="flex-1 overflow-y-auto px-5 w-full">
                 {filteredResults.length > 0 ? (
                   filteredResults
                     .slice((page - 1) * commentsPerPage, page * commentsPerPage)
@@ -68,7 +87,7 @@ const Comments = () => {
               )}
             </div>
           </Tab>
-          <Tab key="likes" title={CONTENTS.tab[language][1]}></Tab>
+          <Tab key="users" title={CONTENTS.tab[language][1]}></Tab>
         </Tabs>
       </div>
     </div>
