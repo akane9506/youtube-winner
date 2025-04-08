@@ -6,6 +6,8 @@ import { CONTENTS } from "@/consts";
 import CommentItem from "@/components/routes/results/CommentItem";
 import CommentFilters from "@/components/routes/results/CommentFilters";
 
+const DELAY = 500;
+
 const Comments = () => {
   const { language, commentsPerPage } = useContext(PreferenceContext);
   const { searchResults } = useContext(SearchResultContext);
@@ -19,7 +21,19 @@ const Comments = () => {
   // Filters
   // this date range state should be initialized with the min and max time
   const [dateRange, setDateRange] = useState<number[]>([minTime, maxTime]);
+  const [keywords, setKeywords] = useState<string>("");
   const [excludeDuplicates, setExcludeDuplicates] = useState<boolean>(true);
+
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+
+  const debounceUpdateKeywords = (value: string) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => {
+      setKeywords(value);
+    }, DELAY);
+  };
 
   const handleUpdateDateRange = (newDateRange: number[]) => {
     setDateRange(newDateRange);
@@ -30,14 +44,19 @@ const Comments = () => {
 
   const filteredResults = useMemo(() => {
     const userSet = new Set<string>();
+    // reset the page to 1 when the filters change
+    setPage(1);
     return searchResults.filter((data) => {
       if (userSet.has(data.autherDisplayName) && excludeDuplicates) {
+        return false;
+      }
+      if (keywords.length > 0 && !data.textDisplay.includes(keywords)) {
         return false;
       }
       userSet.add(data.autherDisplayName);
       return data.createdAt >= dateRange[0] && data.createdAt <= dateRange[1];
     });
-  }, [searchResults, dateRange, excludeDuplicates]);
+  }, [searchResults, keywords, dateRange, excludeDuplicates]);
 
   const totalPages = Math.ceil(filteredResults.length / commentsPerPage);
 
@@ -49,6 +68,7 @@ const Comments = () => {
         updateDateRange={handleUpdateDateRange}
         excludeDuplicates={excludeDuplicates}
         toggleExcludeDuplicates={handleToggleExcludeDuplicates}
+        updateKeywords={debounceUpdateKeywords}
       />
       <div className="col-span-4 flex flex-col items-center overflow-y-auto">
         <Tabs
