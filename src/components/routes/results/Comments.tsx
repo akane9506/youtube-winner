@@ -5,12 +5,13 @@ import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { CONTENTS } from "@/consts";
 import CommentItem from "@/components/routes/results/CommentItem";
 import CommentFilters from "@/components/routes/results/CommentFilters";
+import UserAvatar from "./UserAvatar";
 
 const DELAY = 500;
 
 const Comments = () => {
   const { language, commentsPerPage } = useContext(PreferenceContext);
-  const { searchResults } = useContext(SearchResultContext);
+  const { searchResults, users } = useContext(SearchResultContext);
   const [page, setPage] = useState<number>(1);
 
   const [minTime, maxTime] = useMemo(() => {
@@ -61,7 +62,7 @@ const Comments = () => {
   const totalPages = Math.ceil(filteredResults.length / commentsPerPage);
 
   return (
-    <div className="flex-1 w-full py-4 grid grid-cols-5 overflow-auto max-h-full">
+    <div className="flex-1 w-full py-4 grid grid-cols-5 overflow-auto max-h-full max-w-[1800px] mx-auto">
       <CommentFilters
         min={minTime}
         max={maxTime}
@@ -107,7 +108,13 @@ const Comments = () => {
               )}
             </div>
           </Tab>
-          <Tab key="users" title={CONTENTS.tab[language][1]}></Tab>
+          <Tab key="users" title={`${CONTENTS.tab[language][1]} ${users.length}`}>
+            <div className="grid grid-cols-6 gap-y-6 overflow-y-auto mx-auto px-10 py-4">
+              {users.map((user) => (
+                <UserAvatar key={user.displayName} user={user} />
+              ))}
+            </div>
+          </Tab>
         </Tabs>
       </div>
     </div>

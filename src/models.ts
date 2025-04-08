@@ -17,6 +17,26 @@ class Comment {
   }
 }
 
+class User {
+  public displayName: string;
+  public profileImageUrl: string;
+  public channelUrl: string;
+  public member: boolean;
+
+  constructor(
+    displayName: string,
+    profileImageUrl: string,
+    channelUrl: string,
+    member: boolean = false
+  ) {
+    // parse the createdAt date to the number timestamp
+    this.displayName = displayName;
+    this.profileImageUrl = profileImageUrl;
+    this.channelUrl = channelUrl;
+    this.member = member;
+  }
+}
+
 class VideoInfo {
   public title: string;
   public description: string;
@@ -32,4 +52,4 @@ class VideoInfo {
   }
 }
 
-export { Comment, VideoInfo };
+export { Comment, User, VideoInfo };

@@ -71,13 +71,21 @@ const CommentFilters = ({
 
   return (
     <div className="flex flex-col gap-5 items-center px-6 pt-4">
-      <div className="flex flex-col items-center gap-2 mb-3 max-w-xs">
-        <h2 className="font-semibold text-start w-full">Video Info</h2>
-        <img src={videoInfo?.imageUrl} alt="Video Thumbnail" className="rounded-lg" />
-        <h1 className="text-xs">{videoInfo?.title}</h1>
+      <div className="flex flex-col items-center gap-2 mb-3">
+        <h2 className="font-semibold text-start w-full">
+          {CONTENTS.sidebar[language][0]}
+        </h2>
+        <img
+          src={videoInfo?.imageUrl}
+          alt="Video Thumbnail"
+          className="rounded-lg w-full"
+        />
+        <h1 className="text-sm font-medium">{videoInfo?.title}</h1>
       </div>
       <div className="flex flex-col gap-3 items-center w-full">
-        <h2 className="font-semibold text-start w-full">Filters</h2>
+        <h2 className="font-semibold text-start w-full">
+          {CONTENTS.sidebar[language][1]}
+        </h2>
         <DateRangePicker
           key={"date-range" + resetToken}
           aria-label="Date Range Picker"
@@ -103,7 +111,7 @@ const CommentFilters = ({
         />
         <Checkbox
           isSelected={excludeDuplicates}
-          size="md"
+          size="sm"
           onValueChange={toggleExcludeDuplicates}
           color="secondary"
         >
@@ -116,7 +124,7 @@ const CommentFilters = ({
         variant="flat"
         onPress={handleResetFilters}
       >
-        Reset Filters
+        {CONTENTS.filters[language][3]}
       </Button>
     </div>
   );

@@ -43,9 +43,13 @@ const CONTENTS = {
       workflow: ["输入视频 id", "选择评论或/及点赞", "获取数据", "抽奖"],
     },
   },
+  sidebar: {
+    en: ["Video Info", "Filters"],
+    zh: ["视频信息", "筛选"],
+  },
   filters: {
-    zh: ["日期范围", "包含关键字", "排除重复用户"],
-    en: ["Date Range", "Include Keywords", "Exclude Duplicated Users"],
+    zh: ["日期范围", "包含关键字", "排除重复用户", "重置筛选"],
+    en: ["Date Range", "Include Keywords", "Exclude Duplicated Users", "Reset Filters"],
   },
   tab: {
     en: ["Comments", "Users"],
