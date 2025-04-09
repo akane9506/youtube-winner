@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
+import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { LANGUAGE_MENU, type AvailableLanguagesType } from "@/consts";
 import {
   Button,
@@ -13,10 +14,11 @@ import { Moon, Sun } from "lucide-react";
 
 const Header = () => {
   const { theme, language, toggleTheme, updateLanguage } = useContext(PreferenceContext);
+  const { clearSearch } = useContext(SearchResultContext);
   const languageDiplay = LANGUAGE_MENU.find((item) => item.key === language)?.text;
   return (
     <div className="flex items-center justify-between px-5 py-2 border-b-1 border-foreground/30">
-      <div>
+      <div className="hover:cursor-pointer" onClick={clearSearch}>
         <h1 className="text-[1.5rem] font-semibold tracking-wide">YouTube Winner</h1>
       </div>
       <div className="flex gap-7 items-center">
