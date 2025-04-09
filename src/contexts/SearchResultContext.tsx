@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { getComments, getUniqueUsers, getVideoInfo } from "@/api/comments";
+import { getComments, getVideoInfo } from "@/api/comments";
 import { Comment, User, VideoInfo } from "@/models";
 
 interface SearchResultProps {
@@ -9,6 +9,8 @@ interface SearchResultProps {
   isLoading: boolean;
   error: string | null;
   startSearch: (videoId: string) => void;
+  clearSearch: () => void;
+  updateUserPool: (newUserPool: User[]) => void;
 }
 
 const SearchResultContext = createContext<SearchResultProps>({
@@ -18,6 +20,8 @@ const SearchResultContext = createContext<SearchResultProps>({
   isLoading: false,
   error: null,
   startSearch: () => {},
+  clearSearch: () => {},
+  updateUserPool: () => {},
 });
 
 const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
@@ -41,7 +45,7 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
       }
       setVideoInfo(videoInfoData);
       setSearchResults(commentsData);
-      setUsers(getUniqueUsers(commentsData));
+      // setUsers(getUniqueUsers(commentsData));
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -77,9 +81,27 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
     fetchComments(requestId);
   };
 
+  const updateUserPool = (newUserPool: User[]) => {
+    setUsers(newUserPool);
+  };
+
+  const clearSearch = () => {
+    setSearchResults([]);
+    setUsers([]);
+  };
+
   return (
     <SearchResultContext.Provider
-      value={{ searchResults, users, videoInfo, error, isLoading, startSearch }}
+      value={{
+        searchResults,
+        users,
+        videoInfo,
+        error,
+        isLoading,
+        startSearch,
+        updateUserPool,
+        clearSearch,
+      }}
     >
       {children}
     </SearchResultContext.Provider>

@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useState, useEffect } from "react";
 import { Tabs, Tab, Pagination } from "@heroui/react";
 import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
@@ -6,12 +6,13 @@ import { CONTENTS } from "@/consts";
 import CommentItem from "@/components/routes/results/CommentItem";
 import CommentFilters from "@/components/routes/results/CommentFilters";
 import UserAvatar from "./UserAvatar";
+import { User } from "@/models";
 
 const DELAY = 500;
 
 const Comments = () => {
   const { language, commentsPerPage } = useContext(PreferenceContext);
-  const { searchResults, users } = useContext(SearchResultContext);
+  const { searchResults, updateUserPool } = useContext(SearchResultContext);
   const [page, setPage] = useState<number>(1);
 
   const [minTime, maxTime] = useMemo(() => {
@@ -43,11 +44,13 @@ const Comments = () => {
     setExcludeDuplicates(newValue);
   };
 
-  const filteredResults = useMemo(() => {
+  const [filteredResults, filteredUsers] = useMemo(() => {
     const userSet = new Set<string>();
     // reset the page to 1 when the filters change
     setPage(1);
-    return searchResults.filter((data) => {
+
+    // filter out the comments based on the date range and keywords
+    const filteredComments = searchResults.filter((data) => {
       if (userSet.has(data.autherDisplayName) && excludeDuplicates) {
         return false;
       }
@@ -57,9 +60,23 @@ const Comments = () => {
       userSet.add(data.autherDisplayName);
       return data.createdAt >= dateRange[0] && data.createdAt <= dateRange[1];
     });
+
+    // filter out the users based on the filtered comments
+    const filteredUsers = filteredComments.map((comment) => {
+      return new User(
+        comment.autherDisplayName,
+        comment.autherProfileImageUrl,
+        comment.autherChannelUrl
+      );
+    });
+    return [filteredComments, filteredUsers];
   }, [searchResults, keywords, dateRange, excludeDuplicates]);
 
   const totalPages = Math.ceil(filteredResults.length / commentsPerPage);
+
+  useEffect(() => {
+    updateUserPool(filteredUsers);
+  }, [updateUserPool, filteredUsers]);
 
   return (
     <div className="flex-1 w-full py-4 grid grid-cols-5 overflow-auto max-h-full max-w-[1800px] mx-auto">
@@ -108,9 +125,9 @@ const Comments = () => {
               )}
             </div>
           </Tab>
-          <Tab key="users" title={`${CONTENTS.tab[language][1]} ${users.length}`}>
+          <Tab key="users" title={`${CONTENTS.tab[language][1]} ${filteredUsers.length}`}>
             <div className="grid grid-cols-6 gap-y-6 overflow-y-auto mx-auto px-10 py-4">
-              {users.map((user) => (
+              {filteredUsers.map((user) => (
                 <UserAvatar key={user.displayName} user={user} />
               ))}
             </div>

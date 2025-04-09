@@ -1,4 +1,4 @@
-import { Comment, User, VideoInfo } from "@/models";
+import { Comment, VideoInfo } from "@/models";
 
 const youtubeKey = import.meta.env.VITE_YOUTUBE_API_KEY;
 
@@ -72,21 +72,21 @@ export const getVideoInfo = async (videoId: string) => {
   }
 };
 
-export const getUniqueUsers = (comments: Comment[]) => {
-  const seenUsers = new Set<string>();
-  const users: User[] = [];
-  comments.forEach((comment) => {
-    if (seenUsers.has(comment.autherDisplayName)) {
-      return;
-    }
-    seenUsers.add(comment.autherDisplayName);
-    users.push(
-      new User(
-        comment.autherDisplayName,
-        comment.autherProfileImageUrl,
-        comment.autherChannelUrl
-      )
-    );
-  });
-  return users;
-};
+// export const getUniqueUsers = (comments: Comment[]) => {
+//   const seenUsers = new Set<string>();
+//   const users: User[] = [];
+//   comments.forEach((comment) => {
+//     if (seenUsers.has(comment.autherDisplayName)) {
+//       return;
+//     }
+//     seenUsers.add(comment.autherDisplayName);
+//     users.push(
+//       new User(
+//         comment.autherDisplayName,
+//         comment.autherProfileImageUrl,
+//         comment.autherChannelUrl
+//       )
+//     );
+//   });
+//   return users;
+// };
