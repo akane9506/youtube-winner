@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import headerIcon from "@/assets/webicon.png";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { LANGUAGE_MENU, type AvailableLanguagesType } from "@/consts";
@@ -18,8 +19,9 @@ const Header = () => {
   const languageDiplay = LANGUAGE_MENU.find((item) => item.key === language)?.text;
   return (
     <div className="flex items-center justify-between px-5 py-2 border-b-1 border-foreground/30">
-      <div className="hover:cursor-pointer" onClick={clearSearch}>
-        <h1 className="text-[1.5rem] font-semibold tracking-wide">YouTube Winner</h1>
+      <div className="hover:cursor-pointer flex gap-2" onClick={clearSearch}>
+        <img src={headerIcon} alt="YouTube Winner" className="w-9 h-9" />
+        <h1 className="text-[1.5rem] font-semibold tracking-tight">YouTube Winner</h1>
       </div>
       <div className="flex gap-7 items-center">
         <div className="flex items-center justify-center gap-2">
