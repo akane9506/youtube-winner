@@ -4,6 +4,7 @@ import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { DateRangePicker, Checkbox, Input, type RangeValue, Button } from "@heroui/react";
 import { parseDate, type CalendarDate } from "@internationalized/date";
 import { CONTENTS } from "@/consts";
+import { RotateCcw } from "lucide-react";
 
 const getDateString = (date: Date) => {
   return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
@@ -83,9 +84,20 @@ const CommentFilters = ({
         <h1 className="text-sm font-medium">{videoInfo?.title}</h1>
       </div>
       <div className="flex flex-col gap-3 items-center w-full">
-        <h2 className="font-semibold text-start w-full">
-          {CONTENTS.sidebar[language][1]}
-        </h2>
+        <div className="w-full flex items-center justify-between">
+          <h2 className="font-semibold text-start w-full">
+            {CONTENTS.sidebar[language][1]}
+          </h2>
+          <Button
+            key={resetToken}
+            color="primary"
+            variant="light"
+            className="h-5 min-w-4 px-2"
+            onPress={handleResetFilters}
+          >
+            <RotateCcw className="h-4 text-secondary" />
+          </Button>
+        </div>
         <DateRangePicker
           key={"date-range" + resetToken}
           aria-label="Date Range Picker"
@@ -118,14 +130,15 @@ const CommentFilters = ({
           {CONTENTS.filters[language][2]}
         </Checkbox>
       </div>
-      <Button
-        key={resetToken}
-        color="primary"
-        variant="flat"
-        onPress={handleResetFilters}
-      >
-        {CONTENTS.filters[language][3]}
-      </Button>
+      <div className="w-full mt-10">
+        <Button
+          variant="shadow"
+          color="danger"
+          className="w-full h-12 text-white text-medium font-semibold tracking-wide"
+        >
+          Start Draw
+        </Button>
+      </div>
     </div>
   );
 };
