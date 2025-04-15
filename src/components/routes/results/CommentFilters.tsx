@@ -1,10 +1,13 @@
 import { useContext, useState } from "react";
+import { RotateCcw } from "lucide-react";
+import { parseDate, type CalendarDate } from "@internationalized/date";
+import DrawModal from "@/components/routes/DrawModal";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { DateRangePicker, Checkbox, Input, type RangeValue, Button } from "@heroui/react";
-import { parseDate, type CalendarDate } from "@internationalized/date";
 import { CONTENTS } from "@/consts";
-import { RotateCcw } from "lucide-react";
+import { createPortal } from "react-dom";
+import { useDisclosure } from "@heroui/react";
 
 const getDateString = (date: Date) => {
   return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
@@ -29,6 +32,9 @@ const CommentFilters = ({
 }: CommentFiltersProps) => {
   const { language } = useContext(PreferenceContext);
   const { videoInfo } = useContext(SearchResultContext);
+
+  // Modal controllers
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
 
   // this token controls the reset of the date range picker and input field
   const [resetToken, setResetToken] = useState<number>(0);
@@ -135,10 +141,15 @@ const CommentFilters = ({
           variant="shadow"
           color="danger"
           className="w-full h-12 text-white text-medium font-semibold tracking-wide"
+          onPress={onOpen}
         >
-          Start Draw
+          {CONTENTS.filters[language][3]}
         </Button>
       </div>
+      {createPortal(
+        <DrawModal isOpen={isOpen} onOpenChange={onOpenChange} onClose={onClose} />,
+        document.getElementById("root") as HTMLElement
+      )}
     </div>
   );
 };
