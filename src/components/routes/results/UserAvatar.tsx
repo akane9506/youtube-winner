@@ -3,7 +3,7 @@ import { User } from "@/models";
 
 const UserAvatar = ({ user }: { user: User }) => {
   return (
-    <div className="flex flex-col group gap-1 items-center">
+    <div className="flex flex-col group gap-1 items-center py-2">
       <Avatar
         key={user.displayName}
         src={user.profileImageUrl}

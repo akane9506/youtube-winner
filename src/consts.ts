@@ -48,8 +48,8 @@ const CONTENTS = {
     zh: ["视频信息", "筛选"],
   },
   filters: {
-    zh: ["日期范围", "包含关键字", "排除重复用户", "重置筛选"],
-    en: ["Date Range", "Include Keywords", "Exclude Duplicated Users", "Reset Filters"],
+    zh: ["日期范围", "包含关键字", "排除重复用户", "开始抽奖"],
+    en: ["Date Range", "Include Keywords", "Exclude Duplicated Users", "Start Draw"],
   },
   tab: {
     en: ["Comments", "Users"],
