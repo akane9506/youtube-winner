@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { RotateCcw } from "lucide-react";
 import { parseDate, type CalendarDate } from "@internationalized/date";
-import DrawModal from "@/components/routes/DrawModal";
+import DrawModal from "@/components/routes/draw/DrawModal";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { DateRangePicker, Checkbox, Input, type RangeValue, Button } from "@heroui/react";
@@ -104,7 +104,9 @@ const CommentFilters = ({
             <RotateCcw className="h-4 text-secondary" />
           </Button>
         </div>
+        {/* TODO: Change the iner wrapper style for adaptive purposes */}
         <DateRangePicker
+          classNames={{ innerWrapper: "", inputWrapper: "justify-start" }}
           key={"date-range" + resetToken}
           aria-label="Date Range Picker"
           label={CONTENTS.filters[language][0]}

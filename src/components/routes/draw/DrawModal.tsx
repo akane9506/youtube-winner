@@ -6,6 +6,7 @@ import {
   ModalFooter,
   Button,
 } from "@heroui/react";
+import TierDraw from "@/components/routes/draw/TierDraw";
 
 type DrawModalProps = {
   isOpen: boolean;
@@ -14,19 +15,22 @@ type DrawModalProps = {
 };
 
 const DrawModal = ({ isOpen, onOpenChange, onClose }: DrawModalProps) => {
-  console.log(isOpen);
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
-        <ModalHeader>Draw</ModalHeader>
+        <ModalHeader>
+          <h1 className="mx-auto">Draw</h1>
+        </ModalHeader>
         <ModalBody>
-          <p>Draw content goes here...</p>
+          <TierDraw />
         </ModalBody>
         <ModalFooter>
-          <Button variant="ghost" onPress={onClose}>
+          <Button variant="light" onPress={onClose}>
             Close
           </Button>
-          <Button onPress={onClose}>Draw</Button>
+          <Button variant="solid" color="danger" className="text-white" onPress={onClose}>
+            Draw
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
