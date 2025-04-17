@@ -21,30 +21,34 @@ const TierDraw = ({ drawState, updateDrawState }: TierDrawProps) => {
 
   // sample the winners
   const sampling = useCallback(() => {
+    timeouts.forEach((timeout) => {
+      clearTimeout(timeout);
+    });
+
     const indices = Array.from({ length: users.length }, (_, i) => i);
     const shuffledIndices = indices.sort(() => Math.random() - 0.5);
-    const starts = [0, goldWinners.length, goldWinners.length + silverWinners.length];
-    const ends = [starts[1], starts[2], starts[2] + bronzeWinners.length];
 
     const setters = [setGoldWinners, setSilverWinners, setBronzeWinners];
-
-    for (let i = 0; i < 3; i++) {
-      if (timeouts[i]) clearTimeout(timeouts[i]);
+    const starts = [0, goldWinners.length, goldWinners.length + silverWinners.length];
+    const ends = [starts[1], starts[2], starts[2] + bronzeWinners.length];
+    setters.forEach((stateSetter, i) => {
       timeouts[i] = setTimeout(
         () => {
-          setters[i](() => {
+          if (i === 2) updateDrawState(3);
+          stateSetter(() => {
             return shuffledIndices.slice(starts[i], ends[i]).map((index) => users[index]);
           });
         },
         (i + 1) * DELAY
       );
-    }
-  }, [users, goldWinners, silverWinners, bronzeWinners]);
+    });
+  }, [users, goldWinners, silverWinners, bronzeWinners, updateDrawState]);
 
+  // start sampling when the draw state is 1
   useEffect(() => {
     if (drawState === 1) {
-      sampling();
       updateDrawState(2);
+      sampling();
     }
   }, [drawState, sampling, updateDrawState]);
 
