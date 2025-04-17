@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useContext } from "react";
 import {
   Modal,
   ModalContent,
@@ -8,6 +8,8 @@ import {
   Button,
 } from "@heroui/react";
 import TierDraw from "@/components/routes/draw/TierDraw";
+import { CONTENTS } from "@/consts";
+import { PreferenceContext } from "@/contexts/PreferenceContext";
 
 type DrawModalProps = {
   isOpen: boolean;
@@ -16,24 +18,26 @@ type DrawModalProps = {
 };
 
 const DrawModal = ({ isOpen, onOpenChange, onClose }: DrawModalProps) => {
+  const { language } = useContext(PreferenceContext);
   const [drawState, setDrawState] = useState<number>(0);
 
-  const handleUpdateDrawState = (newState: number) => {
-    setDrawState(newState);
-  };
+  const handleUpdateDrawState = useCallback(
+    (newState: number) => {
+      setDrawState(newState);
+    },
+    [setDrawState]
+  );
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
       <ModalContent>
-        <ModalHeader>
-          <h1 className="mx-auto">Draw</h1>
-        </ModalHeader>
+        <ModalHeader></ModalHeader>
         <ModalBody>
           <TierDraw drawState={drawState} updateDrawState={handleUpdateDrawState} />
         </ModalBody>
         <ModalFooter>
           <Button variant="light" onPress={onClose}>
-            Close
+            {CONTENTS.modal[language].actions[0]}
           </Button>
           <Button
             variant="solid"
@@ -41,7 +45,7 @@ const DrawModal = ({ isOpen, onOpenChange, onClose }: DrawModalProps) => {
             className="text-white"
             onPress={() => handleUpdateDrawState(1)}
           >
-            Draw
+            {CONTENTS.modal[language].actions[1]}
           </Button>
         </ModalFooter>
       </ModalContent>
