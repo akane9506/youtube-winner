@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 import { Skeleton } from "@heroui/react";
 import { User } from "@/models";
+import UserAvatar from "../results/UserAvatar";
 
 type TierSectionProps = {
   tierName: string;
@@ -17,7 +18,7 @@ const TierSection = ({ tierName, winners, updateWinnerNumberFn }: TierSectionPro
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2">
       <div className="flex items-center gap-3 justify-center">
         <h2>{tierName}</h2>
         <input
@@ -29,12 +30,20 @@ const TierSection = ({ tierName, winners, updateWinnerNumberFn }: TierSectionPro
           onChange={handleUpdateWinnerNumber}
         />
       </div>
-      <div className="flex flex-wrap gap-2 justify-center">
+      <div className="flex flex-wrap gap-4 justify-center">
         {winners.map((winner, index) =>
           winner === undefined ? (
-            <Skeleton key={`placeholder-${index}`} className="rounded-full w-8 h-8" />
+            <div
+              key={`placeholder-${index}`}
+              className="flex flex-col gap-1 items-center py-2"
+            >
+              <Skeleton className="rounded-full w-11 h-11" />
+              <Skeleton className="rounded-full w-20 h-4" />
+            </div>
           ) : (
-            <div key={winner.displayName}>{winner.displayName}</div>
+            <div key={winner.displayName}>
+              <UserAvatar user={winner} size="md" />
+            </div>
           )
         )}
       </div>

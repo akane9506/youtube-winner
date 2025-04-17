@@ -55,6 +55,10 @@ const CONTENTS = {
     en: ["Comments", "Users"],
     zh: ["评论", "用户"],
   },
+  modal: {
+    en: { tiers: ["Gold", "Silver", "Bronze"], actions: ["Cancel", "Draw"] },
+    zh: { tiers: ["金奖", "银奖", "铜奖"], actions: ["取消", "抽奖"] },
+  },
   header: {},
 };
 

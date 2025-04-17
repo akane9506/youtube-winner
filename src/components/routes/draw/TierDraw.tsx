@@ -1,7 +1,9 @@
 import { useState, useContext, useEffect, useCallback } from "react";
 import { SearchResultContext } from "@/contexts/SearchResultContext";
+import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { User } from "@/models";
 import TierSection from "@/components/routes/draw/TierSection";
+import { CONTENTS } from "@/consts";
 
 const DELAY = 1000;
 
@@ -14,13 +16,14 @@ const timeouts: (NodeJS.Timeout | undefined)[] = [undefined, undefined, undefine
 
 const TierDraw = ({ drawState, updateDrawState }: TierDrawProps) => {
   const { users } = useContext(SearchResultContext);
+  const { language } = useContext(PreferenceContext);
 
   const [goldWinners, setGoldWinners] = useState<(User | undefined)[]>([undefined]);
   const [silverWinners, setSilverWinners] = useState<(User | undefined)[]>([undefined]);
   const [bronzeWinners, setBronzeWinners] = useState<(User | undefined)[]>([undefined]);
 
   // sample the winners
-  const sampling = useCallback(() => {
+  const draw = useCallback(() => {
     timeouts.forEach((timeout) => {
       clearTimeout(timeout);
     });
@@ -42,31 +45,37 @@ const TierDraw = ({ drawState, updateDrawState }: TierDrawProps) => {
         (i + 1) * DELAY
       );
     });
-  }, [users, goldWinners, silverWinners, bronzeWinners, updateDrawState]);
+  }, [
+    users,
+    goldWinners.length,
+    silverWinners.length,
+    bronzeWinners.length,
+    updateDrawState,
+  ]);
 
   // start sampling when the draw state is 1
   useEffect(() => {
     if (drawState === 1) {
       updateDrawState(2);
-      sampling();
+      draw();
     }
-  }, [drawState, sampling, updateDrawState]);
+  }, [drawState, draw, updateDrawState]);
 
   // update the total number of draws whenever the winners changes
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
       <TierSection
-        tierName="Gold"
+        tierName={CONTENTS.modal[language].tiers[0]}
         winners={goldWinners}
         updateWinnerNumberFn={setGoldWinners}
       />
       <TierSection
-        tierName="Silver"
+        tierName={CONTENTS.modal[language].tiers[1]}
         winners={silverWinners}
         updateWinnerNumberFn={setSilverWinners}
       />
       <TierSection
-        tierName="Bronze"
+        tierName={CONTENTS.modal[language].tiers[2]}
         winners={bronzeWinners}
         updateWinnerNumberFn={setBronzeWinners}
       />
