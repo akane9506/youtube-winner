@@ -148,10 +148,11 @@ const CommentFilters = ({
           {CONTENTS.filters[language][3]}
         </Button>
       </div>
-      {createPortal(
-        <DrawModal isOpen={isOpen} onOpenChange={onOpenChange} onClose={onClose} />,
-        document.getElementById("root") as HTMLElement
-      )}
+      {isOpen &&
+        createPortal(
+          <DrawModal isOpen={isOpen} onOpenChange={onOpenChange} onClose={onClose} />,
+          document.getElementById("root") as HTMLElement
+        )}
     </div>
   );
 };

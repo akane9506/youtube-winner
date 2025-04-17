@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -15,6 +16,12 @@ type DrawModalProps = {
 };
 
 const DrawModal = ({ isOpen, onOpenChange, onClose }: DrawModalProps) => {
+  const [drawState, setDrawState] = useState<number>(0);
+
+  const handleUpdateDrawState = (newState: number) => {
+    setDrawState(newState);
+  };
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
@@ -22,13 +29,18 @@ const DrawModal = ({ isOpen, onOpenChange, onClose }: DrawModalProps) => {
           <h1 className="mx-auto">Draw</h1>
         </ModalHeader>
         <ModalBody>
-          <TierDraw />
+          <TierDraw drawState={drawState} updateDrawState={handleUpdateDrawState} />
         </ModalBody>
         <ModalFooter>
           <Button variant="light" onPress={onClose}>
             Close
           </Button>
-          <Button variant="solid" color="danger" className="text-white" onPress={onClose}>
+          <Button
+            variant="solid"
+            color="danger"
+            className="text-white"
+            onPress={() => handleUpdateDrawState(1)}
+          >
             Draw
           </Button>
         </ModalFooter>

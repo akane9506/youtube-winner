@@ -29,7 +29,7 @@ const TierSection = ({ tierName, winners, updateWinnerNumberFn }: TierSectionPro
           onChange={handleUpdateWinnerNumber}
         />
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 justify-center">
         {winners.map((winner, index) =>
           winner === undefined ? (
             <Skeleton key={`placeholder-${index}`} className="rounded-full w-8 h-8" />

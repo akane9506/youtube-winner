@@ -45,7 +45,6 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
       }
       setVideoInfo(videoInfoData);
       setSearchResults(commentsData);
-      // setUsers(getUniqueUsers(commentsData));
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
