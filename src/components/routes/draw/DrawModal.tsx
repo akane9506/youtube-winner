@@ -2,14 +2,17 @@ import { useState, useCallback, useContext } from "react";
 import {
   Modal,
   ModalContent,
-  ModalHeader,
+  // ModalHeader,
   ModalBody,
   ModalFooter,
   Button,
+  Tabs,
+  Tab,
 } from "@heroui/react";
 import TierDraw from "@/components/routes/draw/TierDraw";
 import { CONTENTS } from "@/consts";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
+import WinnerDraw from "./WinnerDraw";
 
 type DrawModalProps = {
   isOpen: boolean;
@@ -31,9 +34,16 @@ const DrawModal = ({ isOpen, onOpenChange, onClose }: DrawModalProps) => {
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
       <ModalContent>
-        <ModalHeader></ModalHeader>
-        <ModalBody>
-          <TierDraw drawState={drawState} updateDrawState={handleUpdateDrawState} />
+        {/* <ModalHeader></ModalHeader> */}
+        <ModalBody className="flex flex-col gap-4 items-center mt-4">
+          <Tabs variant="solid" radius="full">
+            <Tab key="drawmodal-tier" title={CONTENTS.modal[language].tabs[0]}>
+              <TierDraw drawState={drawState} updateDrawState={handleUpdateDrawState} />
+            </Tab>
+            <Tab key="drawmodal-winners" title={CONTENTS.modal[language].tabs[1]}>
+              <WinnerDraw />
+            </Tab>
+          </Tabs>
         </ModalBody>
         <ModalFooter>
           <Button variant="light" onPress={onClose}>

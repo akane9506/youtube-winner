@@ -56,8 +56,16 @@ const CONTENTS = {
     zh: ["评论", "用户"],
   },
   modal: {
-    en: { tiers: ["Gold", "Silver", "Bronze"], actions: ["Cancel", "Draw"] },
-    zh: { tiers: ["金奖", "银奖", "铜奖"], actions: ["取消", "抽奖"] },
+    en: {
+      tiers: ["Gold", "Silver", "Bronze"],
+      actions: ["Cancel", "Draw"],
+      tabs: ["By Tiers", "By Winners"],
+    },
+    zh: {
+      tiers: ["金奖", "银奖", "铜奖"],
+      actions: ["取消", "抽奖"],
+      tabs: ["按奖项", "按获奖者"],
+    },
   },
   header: {},
 };
