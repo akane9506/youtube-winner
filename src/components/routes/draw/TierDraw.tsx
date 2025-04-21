@@ -3,9 +3,7 @@ import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { User } from "@/models";
 import TierSection from "@/components/routes/draw/TierSection";
-import { CONTENTS } from "@/consts";
-
-const DELAY = 1000;
+import { CONTENTS, DRAW_DELAY as DELAY } from "@/consts";
 
 type TierDrawProps = {
   drawState: number;
@@ -37,7 +35,7 @@ const TierDraw = ({ drawState, updateDrawState }: TierDrawProps) => {
     setters.forEach((stateSetter, i) => {
       timeouts[i] = setTimeout(
         () => {
-          if (i === 2) updateDrawState(3);
+          if (i === 2) updateDrawState(0);
           stateSetter(() => {
             return shuffledIndices.slice(starts[i], ends[i]).map((index) => users[index]);
           });

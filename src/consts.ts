@@ -5,6 +5,8 @@ type LanguageMenuType = { key: AvailableLanguagesType; text: string };
 const THEME_KEY = "youtube_winner_theme";
 const LANGUAGE_KEY = "youtube_winner_language";
 
+const DRAW_DELAY = 1000;
+
 const LANGUAGE_MENU: LanguageMenuType[] = [
   { key: "en", text: "EN" },
   { key: "zh", text: "中文" },
@@ -56,8 +58,18 @@ const CONTENTS = {
     zh: ["评论", "用户"],
   },
   modal: {
-    en: { tiers: ["Gold", "Silver", "Bronze"], actions: ["Cancel", "Draw"] },
-    zh: { tiers: ["金奖", "银奖", "铜奖"], actions: ["取消", "抽奖"] },
+    en: {
+      tiers: ["Gold", "Silver", "Bronze"],
+      winners: "Winners",
+      actions: ["Cancel", "Draw", "Drawing..."],
+      tabs: ["By Tiers", "By Winners"],
+    },
+    zh: {
+      tiers: ["金奖", "银奖", "铜奖"],
+      winners: "获奖者",
+      actions: ["取消", "抽奖", "抽奖中..."],
+      tabs: ["按奖项", "按获奖者"],
+    },
   },
   header: {},
 };
@@ -67,6 +79,8 @@ export {
   LANGUAGE_KEY,
   LANGUAGE_MENU,
   CONTENTS,
+  DRAW_DELAY,
+  // types
   type AvailableLanguagesType,
   type AvailableThemesType,
 };

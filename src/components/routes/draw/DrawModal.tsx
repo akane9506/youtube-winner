@@ -2,14 +2,17 @@ import { useState, useCallback, useContext } from "react";
 import {
   Modal,
   ModalContent,
-  ModalHeader,
+  // ModalHeader,
   ModalBody,
   ModalFooter,
   Button,
+  Tabs,
+  Tab,
 } from "@heroui/react";
 import TierDraw from "@/components/routes/draw/TierDraw";
 import { CONTENTS } from "@/consts";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
+import WinnerDraw from "./WinnerDraw";
 
 type DrawModalProps = {
   isOpen: boolean;
@@ -28,12 +31,20 @@ const DrawModal = ({ isOpen, onOpenChange, onClose }: DrawModalProps) => {
     [setDrawState]
   );
 
+  const isDrawing = !(drawState === 0);
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
       <ModalContent>
-        <ModalHeader></ModalHeader>
-        <ModalBody>
-          <TierDraw drawState={drawState} updateDrawState={handleUpdateDrawState} />
+        <ModalBody className="flex flex-col gap-4 items-center mt-4">
+          <Tabs variant="solid" radius="full">
+            <Tab key="drawmodal-tier" title={CONTENTS.modal[language].tabs[0]}>
+              <TierDraw drawState={drawState} updateDrawState={handleUpdateDrawState} />
+            </Tab>
+            <Tab key="drawmodal-winners" title={CONTENTS.modal[language].tabs[1]}>
+              <WinnerDraw drawState={drawState} updateDrawState={handleUpdateDrawState} />
+            </Tab>
+          </Tabs>
         </ModalBody>
         <ModalFooter>
           <Button variant="light" onPress={onClose}>
@@ -44,8 +55,10 @@ const DrawModal = ({ isOpen, onOpenChange, onClose }: DrawModalProps) => {
             color="danger"
             className="text-white"
             onPress={() => handleUpdateDrawState(1)}
+            disabled={isDrawing}
+            isLoading={isDrawing}
           >
-            {CONTENTS.modal[language].actions[1]}
+            {CONTENTS.modal[language].actions[drawState === 0 ? 1 : 2]}
           </Button>
         </ModalFooter>
       </ModalContent>
