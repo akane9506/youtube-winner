@@ -4,6 +4,11 @@
   [中文]
 </div>
 
+<br/>
+<img src="./public/demo.gif">
+<br/>
+<br/>
+
 
 YouTube-Winner 是一个网页应用，用于从 YouTube 视频评论和点赞中随机抽取获奖者。它提供了用户友好的界面，可用于筛选评论、管理用户池，并进行分级或编号抽奖。
 

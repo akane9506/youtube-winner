@@ -3,7 +3,10 @@
   [English]
   <a href="./README_CN.md">[中文]</a>
 </div>
-
+<br/>
+<img src="./public/demo.gif">
+<br/>
+<br/>
 YouTube-Winner is a web application designed to randomly select winners from YouTube video comments and likes. It provides a user-friendly interface for filtering comments, managing user pools, and conducting tiered or numbered draws.
 
 ## Features
