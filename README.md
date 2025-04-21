@@ -1,6 +1,10 @@
-# YouTube-Draw
+<h1 align="center">YouTube-Winner</h1>
+<div align="center">
+  [English]
+  <a href="./README_CN.md">[中文]</a>
+</div>
 
-YouTube-Draw is a web application designed to randomly select winners from YouTube video comments and likes. It provides a user-friendly interface for filtering comments, managing user pools, and conducting tiered or numbered draws.
+YouTube-Winner is a web application designed to randomly select winners from YouTube video comments and likes. It provides a user-friendly interface for filtering comments, managing user pools, and conducting tiered or numbered draws.
 
 ## Features
 
@@ -65,13 +69,6 @@ src/
 ├── main.tsx               # Entry point
 ├── index.css              # Global styles
 ```
-
-## Deployment
-
-This project is configured to deploy to GitHub Pages using a GitHub Actions workflow. To deploy:
-
-1. Push changes to the `main` branch.
-2. The workflow will automatically build and deploy the app to GitHub Pages.
 
 ## Environment Variables
 
