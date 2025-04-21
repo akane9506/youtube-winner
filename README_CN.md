@@ -25,25 +25,27 @@ YouTube-Winner 是一个网页应用，用于从 YouTube 视频评论和点赞�
 ## 安装步骤
 
 1. 获取仓库：
-  ```bash
-  git clone https://github.com/akane9506/youtube-winner.git
-  cd youtube-draw
-  ```
+    ```bash
+    git clone https://github.com/akane9506/youtube-winner.git
+    ```
+    ```
+    cd youtube-winner
+    ```
 
 2. 安装依赖：
-  ```bash
-  npm install
-  ```
+    ```bash
+    npm install
+    ```
 
 3. 在项目根目录下创建 `.env` 文件，并添加你的 YouTube API 密钥：
-  ```env
-  VITE_YOUTUBE_API_KEY=<your_youtube_api_key>
-  ```
+    ```env
+    VITE_YOUTUBE_API_KEY=<your_youtube_api_key>
+    ```
 
 4. 启动开发服务器：
-  ```bash
-  npm run dev
-  ```
+    ```bash
+    npm run dev
+    ```
 
 5. 在浏览器中打开 `http://localhost:5173` 访问应用。
 

@@ -26,8 +26,10 @@ YouTube-Winner is a web application designed to randomly select winners from You
 1. Clone the repository:
    ```bash
    git clone https://github.com/akane9506/youtube-winner.git
-   cd youtube-draw
    ```
+    ```
+   cd youtube-winner
+    ```
 
 2. Install dependencies:
    ```bash
