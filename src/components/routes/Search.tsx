@@ -36,6 +36,11 @@ const Search = () => {
         className="mb-5 max-w-[720px]"
         value={videoId}
         onValueChange={(value) => setVideoId(value)}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            startSearch(videoId);
+          }
+        }}
       />
       <Button
         color="secondary"
