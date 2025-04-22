@@ -138,7 +138,7 @@ const CommentFilters = ({
           {CONTENTS.filters[language][2]}
         </Checkbox>
       </div>
-      <div className="w-full mt-10">
+      <div className="w-full mt-4 xl:mt-10">
         <Button
           variant="shadow"
           color="danger"

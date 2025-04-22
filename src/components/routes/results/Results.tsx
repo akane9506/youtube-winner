@@ -73,7 +73,7 @@ const Results = () => {
   }, [updateUserPool, filteredUsers]);
 
   return (
-    <div className="flex-1 w-full py-4 grid grid-cols-5 overflow-auto max-h-full max-w-[1800px] mx-auto">
+    <div className="flex-1 w-full py-4 grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 overflow-auto max-h-full max-w-[1800px] mx-auto">
       <CommentFilters
         min={minTime}
         max={maxTime}
@@ -82,7 +82,7 @@ const Results = () => {
         toggleExcludeDuplicates={handleToggleExcludeDuplicates}
         updateKeywords={debounceUpdateKeywords}
       />
-      <div className="col-span-4 flex flex-col items-center overflow-y-auto">
+      <div className="md:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col items-center overflow-y-auto">
         <Tabs
           classNames={{ panel: "flex-1 flex h-[80%] w-full" }}
           size="md"
