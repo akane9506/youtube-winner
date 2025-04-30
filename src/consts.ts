@@ -15,7 +15,7 @@ const LANGUAGE_MENU: LanguageMenuType[] = [
 const CONTENTS = {
   search: {
     en: {
-      title: "Search Video Comments and Likes",
+      title: "Search Video Comments",
       inputLabel: "YouTube video url or id",
       button: "Search",
       buttonLoading: "Searching...",
@@ -24,16 +24,11 @@ const CONTENTS = {
       examples: ["provide full url", "provide video id only"],
       exampleInputs: ["https://www.youtube.com/watch?v=abcd1234", "abcd1234"],
       workflowTitle: "Lottery Workflow",
-      workflow: [
-        "input video id",
-        "select comments and/or likes",
-        "fetch data",
-        "draw winners",
-      ],
+      workflow: ["input video id", "select comments", "fetch data", "draw winners"],
       filters: ["Date Range"],
     },
     zh: {
-      title: "搜索视频评论与点赞",
+      title: "搜索视频评论",
       inputLabel: "YouTube 视频链接或 id",
       button: "开始搜索",
       buttonLoading: "搜索中...",
@@ -42,7 +37,7 @@ const CONTENTS = {
       examples: ["输入完整视频链接", "仅输入视频 id"],
       exampleInputs: ["https://www.youtube.com/watch?v=abcd1234", "abcd1234"],
       workflowTitle: "抽奖流程",
-      workflow: ["输入视频 id", "选择评论或/及点赞", "获取数据", "抽奖"],
+      workflow: ["输入视频 id", "选择评论", "获取数据", "抽奖"],
     },
   },
   sidebar: {
