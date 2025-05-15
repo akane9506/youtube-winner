@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/react";
 import { ChevronsUpDown } from "lucide-react";
+import { CONTENTS } from "@/consts";
 
 const CommentNumDropdown = () => {
-  const { commentsPerPage, updateCommentsPerPage } = useContext(PreferenceContext);
+  const { language, commentsPerPage, updateCommentsPerPage } =
+    useContext(PreferenceContext);
 
   const handleSelect = (key: string) => {
     const numComments = parseInt(key.split("-").slice(-1)[0]);
@@ -38,7 +40,7 @@ const CommentNumDropdown = () => {
           })}
         </DropdownMenu>
       </Dropdown>
-      <p className="text-sm">per page</p>
+      <p className="text-sm">{CONTENTS.search[language].numComments}</p>
     </div>
   );
 };

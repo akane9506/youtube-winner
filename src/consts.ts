@@ -28,6 +28,7 @@ const CONTENTS = {
       workflowTitle: "Lottery Workflow",
       workflow: ["input video id", "select comments", "fetch data", "draw winners"],
       filters: ["Date Range"],
+      numComments: "per page",
     },
     zh: {
       title: "搜索视频评论",
@@ -40,6 +41,7 @@ const CONTENTS = {
       exampleInputs: ["https://www.youtube.com/watch?v=abcd1234", "abcd1234"],
       workflowTitle: "抽奖流程",
       workflow: ["输入视频 id", "选择评论", "获取数据", "抽奖"],
+      numComments: "每页",
     },
   },
   sidebar: {
