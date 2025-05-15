@@ -57,13 +57,15 @@ const Results = () => {
     });
 
     // filter out the users based on the filtered comments
-    const filteredUsers = filteredComments.map((comment) => {
-      return new User(
-        comment.autherDisplayName,
-        comment.autherProfileImageUrl,
-        comment.autherChannelUrl
-      );
-    });
+    const filteredUsers = filteredComments
+      .sort((a, b) => a.autherDisplayName.localeCompare(b.autherDisplayName))
+      .map((comment) => {
+        return new User(
+          comment.autherDisplayName,
+          comment.autherProfileImageUrl,
+          comment.autherChannelUrl
+        );
+      });
     return [filteredComments, filteredUsers];
   }, [searchResults, keywords, dateRange, excludeDuplicates]);
 
