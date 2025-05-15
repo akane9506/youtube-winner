@@ -3,6 +3,7 @@ import { Pagination } from "@heroui/react";
 import CommentItem from "@/components/routes/results/CommentItem";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { Comment } from "@/models";
+import CommentNumDropdown from "./CommentNumDropdown";
 
 const Comments = ({ filteredResults }: { filteredResults: Comment[] }) => {
   const { commentsPerPage } = useContext(PreferenceContext);
@@ -30,16 +31,20 @@ const Comments = ({ filteredResults }: { filteredResults: Comment[] }) => {
           <p>No Comments Available</p>
         )}
       </div>
-      {totalPages > 0 && (
-        <Pagination
-          color="secondary"
-          page={page}
-          total={totalPages}
-          onChange={setPage}
-          variant="light"
-          size="sm"
-        />
-      )}
+      <div className="grid grid-cols-3 justify-items-center">
+        {totalPages > 0 && (
+          <Pagination
+            color="secondary"
+            page={page}
+            total={totalPages}
+            onChange={setPage}
+            variant="light"
+            size="sm"
+            className="col-start-2"
+          />
+        )}
+        <CommentNumDropdown />
+      </div>
     </div>
   );
 };
