@@ -7,7 +7,7 @@ const LANGUAGE_KEY = "youtube_winner_language";
 
 const DRAW_DELAY = 1000;
 const DEFAULT_COMMENTS_PER_PAGE = 12;
-const COMMENTS_NUM_BOUNDS = [6, 20];
+const COMMENTS_NUM_BOUNDS = [6, 30];
 
 const LANGUAGE_MENU: LanguageMenuType[] = [
   { key: "en", text: "EN" },
