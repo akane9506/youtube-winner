@@ -2,6 +2,8 @@ import { createContext, useState } from "react";
 import {
   THEME_KEY,
   LANGUAGE_KEY,
+  DEFAULT_COMMENTS_PER_PAGE,
+  COMMENTS_NUM_BOUNDS,
   AvailableThemesType,
   AvailableLanguagesType,
 } from "@/consts";
@@ -11,6 +13,7 @@ interface PreferenceProps {
   commentsPerPage: number;
   toggleTheme: () => void;
   updateLanguage: (newLanguage: PreferenceProps["language"]) => void;
+  updateCommentsPerPage: (numComments: number) => void;
 }
 
 // Initialize context with default values
@@ -20,6 +23,7 @@ const PreferenceContext = createContext<PreferenceProps>({
   commentsPerPage: 12,
   toggleTheme: () => {},
   updateLanguage: () => {},
+  updateCommentsPerPage: () => {},
 });
 
 const PreferenceProvider = ({ children }: { children: React.ReactNode }) => {
@@ -41,6 +45,9 @@ const PreferenceProvider = ({ children }: { children: React.ReactNode }) => {
   const [language, setLanguage] = useState<PreferenceProps["language"]>(
     curr_language as PreferenceProps["language"]
   );
+  const [commentsPerPage, setCommentsPerPage] = useState<number>(
+    DEFAULT_COMMENTS_PER_PAGE
+  );
 
   const handleToggleTheme = () => {
     setTheme((prevTheme) => {
@@ -60,15 +67,22 @@ const PreferenceProvider = ({ children }: { children: React.ReactNode }) => {
     setLanguage(newLanguage);
   };
 
+  const handleCommentsPerPage = (numComments: number) => {
+    const [lowerBound, upperBound] = COMMENTS_NUM_BOUNDS;
+    const boundedNum = Math.max(lowerBound, Math.min(numComments, upperBound));
+    setCommentsPerPage(boundedNum);
+  };
+
   return (
     <PreferenceContext.Provider
       value={{
         theme,
         language,
         // later change this to a state
-        commentsPerPage: 12,
+        commentsPerPage,
         toggleTheme: handleToggleTheme,
         updateLanguage: handleUpdateLanguage,
+        updateCommentsPerPage: handleCommentsPerPage,
       }}
     >
       {children}

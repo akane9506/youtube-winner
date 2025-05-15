@@ -6,6 +6,8 @@ const THEME_KEY = "youtube_winner_theme";
 const LANGUAGE_KEY = "youtube_winner_language";
 
 const DRAW_DELAY = 1000;
+const DEFAULT_COMMENTS_PER_PAGE = 12;
+const COMMENTS_NUM_BOUNDS = [6, 30];
 
 const LANGUAGE_MENU: LanguageMenuType[] = [
   { key: "en", text: "EN" },
@@ -26,6 +28,7 @@ const CONTENTS = {
       workflowTitle: "Lottery Workflow",
       workflow: ["input video id", "select comments", "fetch data", "draw winners"],
       filters: ["Date Range"],
+      numComments: "per page",
     },
     zh: {
       title: "搜索视频评论",
@@ -38,6 +41,7 @@ const CONTENTS = {
       exampleInputs: ["https://www.youtube.com/watch?v=abcd1234", "abcd1234"],
       workflowTitle: "抽奖流程",
       workflow: ["输入视频 id", "选择评论", "获取数据", "抽奖"],
+      numComments: "每页",
     },
   },
   sidebar: {
@@ -75,6 +79,8 @@ export {
   LANGUAGE_MENU,
   CONTENTS,
   DRAW_DELAY,
+  DEFAULT_COMMENTS_PER_PAGE,
+  COMMENTS_NUM_BOUNDS,
   // types
   type AvailableLanguagesType,
   type AvailableThemesType,
