@@ -12,6 +12,8 @@ import {
   DropdownItem,
 } from "@heroui/react";
 import { Moon, Sun } from "lucide-react";
+import githubIcon from "@/assets/github.png";
+import githubIconWhite from "@/assets/github-white.png";
 
 const Header = () => {
   const { theme, language, toggleTheme, updateLanguage } = useContext(PreferenceContext);
@@ -24,6 +26,17 @@ const Header = () => {
         <h1 className="text-[1.5rem] font-semibold tracking-tight">YouTube Winner</h1>
       </div>
       <div className="flex gap-7 items-center">
+        <div
+          className="hover:cursor-pointer"
+          onClick={() =>
+            window.open("https://github.com/akane9506/youtube-winner", "_blank")
+          }
+        >
+          <img
+            className="w-7 h-7 opacity-60"
+            src={theme === "dark" ? githubIconWhite : githubIcon}
+          />
+        </div>
         <div className="flex items-center justify-center gap-2">
           <Sun strokeWidth={1.8} size={24} />
           <Switch
