@@ -33,7 +33,7 @@ const Header = () => {
           }
         >
           <img
-            className="w-7 h-7 opacity-60"
+            className="w-7 h-7 transition-opacity duration-150 hover:opacity-100 opacity-60"
             src={theme === "dark" ? githubIconWhite : githubIcon}
           />
         </div>
