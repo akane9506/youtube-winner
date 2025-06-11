@@ -1,14 +1,25 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Button, Chip, Input } from "@heroui/react";
 import { PreferenceContext } from "@/contexts/PreferenceContext";
 import { SearchResultContext } from "@/contexts/SearchResultContext";
 import { CONTENTS } from "@/consts";
 
+let errorMessageTimeout: NodeJS.Timeout | null = null;
+
 const Search = () => {
   const { language } = useContext(PreferenceContext);
-  const { startSearch, isLoading } = useContext(SearchResultContext);
+  const { startSearch, isLoading, error, clearError } = useContext(SearchResultContext);
 
   const [videoId, setVideoId] = useState<string>("");
+
+  useEffect(() => {
+    if (errorMessageTimeout) clearTimeout(errorMessageTimeout);
+    errorMessageTimeout = setTimeout(() => {
+      if (error) {
+        clearError();
+      }
+    }, 3000);
+  }, [error, clearError]);
 
   return (
     <div className="flex flex-col px-20 items-center justify-center flex-1">
@@ -32,8 +43,8 @@ const Search = () => {
         size="lg"
         label={CONTENTS.search[language].inputLabel}
         labelPlacement="outside"
-        color="secondary"
-        className="mb-5 max-w-[720px]"
+        color={error ? "danger" : "secondary"}
+        className="max-w-[720px]"
         value={videoId}
         onValueChange={(value) => setVideoId(value)}
         onKeyUp={(e) => {
@@ -42,10 +53,16 @@ const Search = () => {
           }
         }}
       />
+      <div
+        className="transition-all duration-300 overflow-hidden mt-1"
+        style={{ height: error ? "24px" : "0px", opacity: error ? 1 : 0 }}
+      >
+        <p className="text-danger my-auto">{error}</p>
+      </div>
       <Button
         color="secondary"
         variant="shadow"
-        className="text-default-50"
+        className="text-default-50 mt-5"
         isLoading={isLoading}
         onPress={() => {
           startSearch(videoId);

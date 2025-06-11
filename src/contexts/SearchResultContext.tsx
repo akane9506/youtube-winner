@@ -10,6 +10,7 @@ interface SearchResultProps {
   error: string | null;
   startSearch: (videoId: string) => void;
   clearSearch: () => void;
+  clearError: () => void;
   updateUserPool: (newUserPool: User[]) => void;
 }
 
@@ -21,6 +22,7 @@ const SearchResultContext = createContext<SearchResultProps>({
   error: null,
   startSearch: () => {},
   clearSearch: () => {},
+  clearError: () => {},
   updateUserPool: () => {},
 });
 
@@ -89,6 +91,10 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
     setUsers([]);
   };
 
+  const clearError = () => {
+    setError(null);
+  };
+
   return (
     <SearchResultContext.Provider
       value={{
@@ -100,6 +106,7 @@ const SearchResultProvider = ({ children }: { children: React.ReactNode }) => {
         startSearch,
         updateUserPool,
         clearSearch,
+        clearError,
       }}
     >
       {children}
